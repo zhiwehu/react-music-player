@@ -1,6 +1,8 @@
+import { useSelector } from "react-redux";
 import { Box, VStack, Image, Heading, Text } from "@chakra-ui/react";
 
-const Song = ({ currentSong }) => {
+const Song = () => {
+  const currentSong = useSelector((state) => state.currentSong);
   return (
     <VStack spacing={10} p={4} align="center" w="full" direction="column">
       <Box>

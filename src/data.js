@@ -1,13 +1,13 @@
 import { v4 as uuid4 } from "uuid";
 
-export const songs = [
+const songs = [
   {
     id: uuid4(),
     title: "浪子心声",
     artist: "许冠杰",
     cover: "https://img1.kuwo.cn/star/albumcover/500/50/43/4292253516.jpg",
     audio:
-      "https://other-web-rh01-sycdn.kuwo.cn/2e45e7cbb4ffd4ed2aaf0cb077f8eeb4/61af5961/resource/n1/25/63/4142196592.mp3",
+      "https://other-web-ri01-sycdn.kuwo.cn/6d07f6e0eaa104def5a70d8ff203913c/61af9983/resource/n1/34/46/46678786.mp3",
   },
   {
     id: uuid4(),
@@ -15,7 +15,7 @@ export const songs = [
     artist: "苏永康",
     cover: "https://img1.kuwo.cn/star/albumcover/500/26/84/1056795808.jpg",
     audio:
-      "https://other-web-ra01-sycdn.kuwo.cn/32f9c86904bb85d06cc84fc65a10500f/61af5416/resource/n3/128/71/9/3080435435.mp3",
+      "https://other-web-nf01-sycdn.kuwo.cn/af7e68509d1da9758d63268cfd5f8e15/61af9a70/resource/n1/43/4/3767307403.mp3",
   },
   {
     id: uuid4(),
@@ -44,3 +44,5 @@ export const songs = [
   },
   */
 ];
+
+export default songs;

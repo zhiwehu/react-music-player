@@ -1,32 +1,22 @@
+import { useSelector, useDispatch } from "react-redux";
 import { Container, Flex } from "@chakra-ui/react";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import Song from "./components/Song";
 import Player from "./components/Player";
 import SongList from "./components/SongList";
-import { songs } from "./data";
 
 const App = () => {
-  const [currentSong, setCurrentSong] = useState(songs[0]);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [songInfo, setSongInfo] = useState({
-    currentTime: null,
-    duration: null,
-  });
+  const dispatch = useDispatch();
   const audioRef = useRef(null);
+  const currentSong = useSelector((state) => state.currentSong);
 
-  const handleSongInfo = (e) => {
-    setSongInfo({
-      ...songInfo,
-      currentTime: e.target.currentTime,
-      duration: e.target.duration,
-    });
-  };
-
-  const handleChangeTime = (value) => {
-    audioRef.current.currentTime = value;
-    setSongInfo({
-      ...songInfo,
-      currentTime: value,
+  const handlePlayingSongTimeInfo = (e) => {
+    dispatch({
+      type: "SET_PLAYING_SONG_TIME_INFO",
+      preload: {
+        currentTime: e.target.currentTime,
+        duration: e.target.duration,
+      },
     });
   };
 
@@ -40,23 +30,13 @@ const App = () => {
         justifyContent="space-between"
         pb={20}
       >
-        <SongList
-          songs={songs}
-          setCurrentSong={setCurrentSong}
-          audioRef={audioRef}
-        />
-        <Song currentSong={currentSong} />
+        <SongList audioRef={audioRef} />
+        <Song />
 
-        <Player
-          songInfo={songInfo}
-          isPlaying={isPlaying}
-          setIsPlaying={setIsPlaying}
-          audioRef={audioRef}
-          handleChangeTime={handleChangeTime}
-        />
+        <Player audioRef={audioRef} />
         <audio
-          onLoadedMetadata={handleSongInfo}
-          onTimeUpdate={handleSongInfo}
+          onLoadedMetadata={handlePlayingSongTimeInfo}
+          onTimeUpdate={handlePlayingSongTimeInfo}
           ref={audioRef}
           src={currentSong.audio}
         ></audio>

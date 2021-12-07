@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import {
   Flex,
   HStack,
@@ -11,24 +12,35 @@ import {
 } from "@chakra-ui/react";
 import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
 import { FaPlay, FaPause } from "react-icons/fa";
+import playVideo from "../playAudio";
 
-const Player = ({
-  songInfo,
-  isPlaying,
-  setIsPlaying,
-  audioRef,
-  handleChangeTime,
-}) => {
-  useEffect(() => {
-    console.log(isPlaying);
-  }, [isPlaying]);
+const Player = ({ audioRef }) => {
+  const dispatch = useDispatch();
+  const isPlaying = useSelector((state) => state.isPlaying);
+  const playingSongTimeInfo = useSelector((state) => state.playingSongTimeInfo);
+
+  const handleChangeTime = (value) => {
+    dispatch({
+      type: "SET_PLAYING_SONG_TIME_INFO",
+      preload: {
+        currentTime: value,
+      },
+    });
+    audioRef.current.currentTime = value;
+  };
 
   const handlePlayPause = () => {
-    setIsPlaying(!isPlaying);
+    dispatch({
+      type: "SET_IS_PLAYING",
+      preload: {
+        isPlaying: !isPlaying,
+      },
+    });
+
     if (isPlaying) {
       audioRef.current.pause();
     } else {
-      audioRef.current.play();
+      playVideo(true, audioRef);
     }
   };
 
@@ -39,12 +51,12 @@ const Player = ({
   return (
     <Flex w="full" direction="column" p={4}>
       <HStack spacing={4} pb={10}>
-        <Text>{formatTime(songInfo.currentTime)}</Text>
+        <Text>{formatTime(playingSongTimeInfo.currentTime)}</Text>
         <Slider
           onChange={handleChangeTime}
           min={0}
-          max={songInfo.duration || 0}
-          value={songInfo.currentTime || 0}
+          max={playingSongTimeInfo.duration || 0}
+          value={playingSongTimeInfo.currentTime || 0}
           step={1}
         >
           <SliderTrack>
@@ -52,7 +64,7 @@ const Player = ({
           </SliderTrack>
           <SliderThumb />
         </Slider>
-        <Text>{formatTime(songInfo.duration)}</Text>
+        <Text>{formatTime(playingSongTimeInfo.duration || 0)}</Text>
       </HStack>
       <HStack justifyContent="center" spacing={10}>
         <Icon fontSize="4xl" cursor="pointer" as={MdSkipPrevious} />

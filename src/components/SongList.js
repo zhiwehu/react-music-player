@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useColorMode, useColorModeValue } from "@chakra-ui/react";
 
 import {
@@ -16,7 +17,8 @@ import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 
 import SongItem from "../components/SongItem";
 
-const SongList = ({ songs, setCurrentSong, audioRef }) => {
+const SongList = ({ audioRef }) => {
+  const songs = useSelector((state) => state.songs);
   const { toggleColorMode } = useColorMode();
   const [songsDrawerIsOpen, setSongsDrawerIsOpen] = useState(false);
 
@@ -52,14 +54,12 @@ const SongList = ({ songs, setCurrentSong, audioRef }) => {
           <DrawerCloseButton />
           <DrawerHeader>Songs</DrawerHeader>
 
-          <DrawerBody>
+          <DrawerBody p={0}>
             {/* TBD: NOT A GOOD WAY to push songs to item!! */}
             {songs.map((song, index) => (
               <SongItem
                 key={index}
                 song={song}
-                songs={songs}
-                setCurrentSong={setCurrentSong}
                 songsDrawerOnClose={songsDrawerOnClose}
                 audioRef={audioRef}
               />
