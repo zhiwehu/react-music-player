@@ -5,3 +5,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ![screen1](public/screen1.png)
 ![screen2](public/screen2.png)
 ![screen3](public/screen3.png)
+
+Demo: https://react-music-player-beta.vercel.app/

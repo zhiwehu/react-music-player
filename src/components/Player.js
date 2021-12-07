@@ -16,6 +16,8 @@ import playVideo from "../playAudio";
 
 const Player = ({ audioRef }) => {
   const dispatch = useDispatch();
+  const currentSong = useSelector((state) => state.currentSong);
+  const songs = useSelector((state) => state.songs);
   const isPlaying = useSelector((state) => state.isPlaying);
   const playingSongTimeInfo = useSelector((state) => state.playingSongTimeInfo);
 
@@ -27,6 +29,28 @@ const Player = ({ audioRef }) => {
       },
     });
     audioRef.current.currentTime = value;
+  };
+
+  const handleSkipPrevious = () => {
+    let index = songs.map((song) => song.id).indexOf(currentSong.id);
+    if (index > 0) index = index - 1;
+    else index = songs.length - 1;
+    const previousSong = songs[index];
+    dispatch({
+      type: "SET_CURRENT_SONG",
+      preload: previousSong,
+    });
+  };
+
+  const handleNext = () => {
+    let index = songs.map((song) => song.id).indexOf(currentSong.id);
+    if (index < songs.length - 1) index = index + 1;
+    else index = 0;
+    const nextSong = songs[index];
+    dispatch({
+      type: "SET_CURRENT_SONG",
+      preload: nextSong,
+    });
   };
 
   const handlePlayPause = () => {
@@ -67,14 +91,24 @@ const Player = ({ audioRef }) => {
         <Text>{formatTime(playingSongTimeInfo.duration || 0)}</Text>
       </HStack>
       <HStack justifyContent="center" spacing={10}>
-        <Icon fontSize="4xl" cursor="pointer" as={MdSkipPrevious} />
+        <Icon
+          onClick={handleSkipPrevious}
+          fontSize="4xl"
+          cursor="pointer"
+          as={MdSkipPrevious}
+        />
         <Icon
           fontSize="4xl"
           cursor="pointer"
           as={isPlaying ? FaPause : FaPlay}
           onClick={handlePlayPause}
         />
-        <Icon fontSize="4xl" cursor="pointer" as={MdSkipNext} />
+        <Icon
+          onClick={handleNext}
+          fontSize="4xl"
+          cursor="pointer"
+          as={MdSkipNext}
+        />
       </HStack>
     </Flex>
   );
