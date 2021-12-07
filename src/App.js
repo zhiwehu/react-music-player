@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Container, Flex } from "@chakra-ui/react";
 import { useState, useRef } from "react";
 import Song from "./components/Song";
 import Player from "./components/Player";
@@ -31,34 +31,37 @@ const App = () => {
   };
 
   return (
-    <Flex
-      w="full"
-      h="100vh"
-      direction="column"
-      align="center"
-      justifyContent="space-between"
-    >
-      <SongList
-        songs={songs}
-        setCurrentSong={setCurrentSong}
-        audioRef={audioRef}
-      />
-      <Song currentSong={currentSong} />
+    <Container>
+      <Flex
+        w="full"
+        h="100vh"
+        direction="column"
+        align="center"
+        justifyContent="space-between"
+        pb={20}
+      >
+        <SongList
+          songs={songs}
+          setCurrentSong={setCurrentSong}
+          audioRef={audioRef}
+        />
+        <Song currentSong={currentSong} />
 
-      <Player
-        songInfo={songInfo}
-        isPlaying={isPlaying}
-        setIsPlaying={setIsPlaying}
-        audioRef={audioRef}
-        handleChangeTime={handleChangeTime}
-      />
-      <audio
-        onLoadedMetadata={handleSongInfo}
-        onTimeUpdate={handleSongInfo}
-        ref={audioRef}
-        src={currentSong.audio}
-      ></audio>
-    </Flex>
+        <Player
+          songInfo={songInfo}
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
+          audioRef={audioRef}
+          handleChangeTime={handleChangeTime}
+        />
+        <audio
+          onLoadedMetadata={handleSongInfo}
+          onTimeUpdate={handleSongInfo}
+          ref={audioRef}
+          src={currentSong.audio}
+        ></audio>
+      </Flex>
+    </Container>
   );
 };
 

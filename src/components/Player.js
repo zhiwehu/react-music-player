@@ -38,13 +38,14 @@ const Player = ({
 
   return (
     <Flex w="full" direction="column" p={4}>
-      <HStack spacing={4}>
+      <HStack spacing={4} pb={10}>
         <Text>{formatTime(songInfo.currentTime)}</Text>
         <Slider
           onChange={handleChangeTime}
           min={0}
           max={songInfo.duration || 0}
           value={songInfo.currentTime || 0}
+          step={1}
         >
           <SliderTrack>
             <SliderFilledTrack />

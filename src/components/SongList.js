@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useColorMode } from "@chakra-ui/react";
+import { useColorMode, useColorModeValue } from "@chakra-ui/react";
 
 import {
   Flex,
@@ -40,7 +40,7 @@ const SongList = ({ songs, setCurrentSong, audioRef }) => {
         onClick={toggleColorMode}
         cursor="pointer"
         fontSize="4xl"
-        as={SunIcon}
+        as={useColorModeValue(SunIcon, MoonIcon)}
       />
       <Drawer
         isOpen={songsDrawerIsOpen}

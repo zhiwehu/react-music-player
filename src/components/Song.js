@@ -5,7 +5,7 @@ const Song = ({ currentSong }) => {
     <VStack spacing={10} p={4} align="center" w="full" direction="column">
       <Box>
         <Image
-          boxSize="150px"
+          boxSize="300px"
           boxShadow="lg"
           borderRadius="full"
           src={currentSong.cover}
