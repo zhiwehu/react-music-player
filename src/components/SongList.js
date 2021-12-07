@@ -17,7 +17,7 @@ import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 import SongItem from "../components/SongItem";
 
 const SongList = ({ songs, setCurrentSong, audioRef }) => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { toggleColorMode } = useColorMode();
   const [songsDrawerIsOpen, setSongsDrawerIsOpen] = useState(false);
 
   const songsDrawerOnOpen = () => {
